@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+
+  button {
+    @apply transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500;
+  }
+
+  input,
+  textarea {
+    @apply transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500;
+  }
+}
+
+@layer utilities {
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
