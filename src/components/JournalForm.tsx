@@ -8,14 +8,22 @@ interface JournalFormProps {
   date: string;
   initialEntry?: JournalEntry | null;
   onSave: (date: string, mood: string, content: string) => void;
+  onDateChange?: (date: string) => void;
 }
 
-export function JournalForm({ date, initialEntry, onSave }: JournalFormProps) {
+export function JournalForm({ date, initialEntry, onSave, onDateChange }: JournalFormProps) {
   const navigate = useNavigate();
+  const [selectedDate, setSelectedDate] = useState(date);
   const [mood, setMood] = useState(initialEntry?.mood || '😊');
   const [content, setContent] = useState(initialEntry?.content || '');
   const [error, setError] = useState('');
   const [isSaving, setIsSaving] = useState(false);
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newDate = e.target.value;
+    setSelectedDate(newDate);
+    onDateChange?.(newDate);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +41,7 @@ export function JournalForm({ date, initialEntry, onSave }: JournalFormProps) {
 
     try {
       setIsSaving(true);
-      onSave(date, mood, content);
+      onSave(selectedDate, mood, content);
       navigate('/journals');
     } catch (err) {
       setError('Failed to save entry. Please try again.');
@@ -50,12 +58,13 @@ export function JournalForm({ date, initialEntry, onSave }: JournalFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto">
       <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-900">Date</label>
+        <label htmlFor="date" className="block text-sm font-medium text-gray-900">Date</label>
         <input
+          id="date"
           type="date"
-          value={date}
-          disabled
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 cursor-not-allowed"
+          value={selectedDate}
+          onChange={handleDateChange}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
       </div>
 

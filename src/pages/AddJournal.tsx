@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useJournals } from '../hooks/useJournals';
 import { JournalForm } from '../components/JournalForm';
@@ -9,10 +10,14 @@ export function AddJournal() {
   // Get date from query params or use today
   const dateParam = searchParams.get('date');
   const today = new Date().toISOString().split('T')[0];
-  const selectedDate = dateParam || today;
+  const [selectedDate, setSelectedDate] = useState(dateParam || today);
 
   // Check if entry exists for this date
   const existingEntry = getByDate(selectedDate);
+
+  const handleDateChange = (newDate: string) => {
+    setSelectedDate(newDate);
+  };
 
   const handleSave = (date: string, mood: string, content: string) => {
     if (existingEntry) {
@@ -33,7 +38,7 @@ export function AddJournal() {
         </p>
       </div>
 
-      <JournalForm date={selectedDate} initialEntry={existingEntry || null} onSave={handleSave} />
+      <JournalForm date={selectedDate} initialEntry={existingEntry || null} onSave={handleSave} onDateChange={handleDateChange} />
     </div>
   );
 }
