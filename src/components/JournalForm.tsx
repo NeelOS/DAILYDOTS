@@ -64,6 +64,8 @@ export function JournalForm({ date, initialEntry, onSave, onDateChange }: Journa
           type="date"
           value={selectedDate}
           onChange={handleDateChange}
+          required
+          aria-required="true"
           className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
       </div>
@@ -80,24 +82,35 @@ export function JournalForm({ date, initialEntry, onSave, onDateChange }: Journa
           onChange={e => setContent(e.target.value)}
           placeholder="Write your thoughts, feelings, and experiences here..."
           rows={10}
+          required
+          aria-required="true"
           className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
         />
       </div>
 
-      {error && <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">{error}</div>}
+      {error && (
+        <div
+          role="alert"
+          className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700"
+          aria-live="polite"
+        >
+          {error}
+        </div>
+      )}
 
       <div className="flex gap-3 pt-4">
         <button
           type="submit"
           disabled={isSaving}
-          className="flex-1 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          aria-busy={isSaving}
+          className="flex-1 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
         >
           {isSaving ? 'Saving...' : 'Save Entry'}
         </button>
         <button
           type="button"
           onClick={handleCancel}
-          className="flex-1 px-4 py-2 border border-gray-300 text-gray-900 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+          className="flex-1 px-4 py-2 border border-gray-300 text-gray-900 font-medium rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
         >
           Cancel
         </button>

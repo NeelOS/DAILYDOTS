@@ -17,25 +17,29 @@ interface MoodSelectorProps {
 }
 
 export function MoodSelector({ value, onChange }: MoodSelectorProps) {
+  const moodSelectorId = 'mood-selector';
+
   return (
-    <div className="space-y-2">
-      <label className="block text-sm font-medium text-gray-900">How are you feeling?</label>
-      <div className="grid grid-cols-4 gap-2 md:grid-cols-8">
+    <fieldset className="space-y-2">
+      <legend className="block text-sm font-medium text-gray-900">How are you feeling?</legend>
+      <div className="grid grid-cols-4 gap-2 md:grid-cols-8" role="group" aria-labelledby="mood-selector">
         {MOOD_OPTIONS.map(mood => (
           <button
             key={mood.value}
             onClick={() => onChange(mood.emoji)}
-            title={mood.label}
-            className={`p-3 text-2xl rounded-lg transition-all ${
+            aria-label={mood.label}
+            aria-pressed={value === mood.emoji}
+            type="button"
+            className={`p-3 text-2xl rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
               value === mood.emoji
                 ? 'ring-2 ring-blue-500 scale-110'
                 : 'hover:scale-105 hover:ring-2 hover:ring-blue-200'
             }`}
           >
-            {mood.emoji}
+            <span aria-hidden="true">{mood.emoji}</span>
           </button>
         ))}
       </div>
-    </div>
+    </fieldset>
   );
 }

@@ -34,11 +34,16 @@ export function MyJournals() {
 
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
+            <label htmlFor="search-entries" className="sr-only">
+              Search entries
+            </label>
             <input
+              id="search-entries"
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Search entries..."
+              aria-label="Search journal entries"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -47,7 +52,8 @@ export function MyJournals() {
             {moodFilter && (
               <button
                 onClick={() => setMoodFilter('')}
-                className="px-4 py-2 bg-gray-100 text-gray-900 rounded-lg hover:bg-gray-200 text-sm font-medium transition-colors"
+                aria-label={`Clear mood filter: ${moodFilter}`}
+                className="px-4 py-2 bg-gray-100 text-gray-900 rounded-lg hover:bg-gray-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors"
               >
                 Clear Filter
               </button>

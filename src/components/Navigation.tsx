@@ -6,16 +6,17 @@ export function Navigation() {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="sticky top-0 z-40 border-b border-gray-200 bg-white shadow-sm">
+    <nav className="sticky top-0 z-40 border-b border-gray-200 bg-white shadow-sm" aria-label="Main navigation">
       <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <span className="text-2xl">📔</span>
+        <Link to="/" className="flex items-center gap-2" aria-label="DailyDots Home">
+          <span className="text-2xl" aria-hidden="true">📔</span>
           <h1 className="text-xl font-bold text-gray-900">DailyDots</h1>
         </Link>
 
         <div className="flex gap-6">
           <Link
             to="/"
+            aria-current={isActive('/') ? 'page' : undefined}
             className={`text-sm font-medium transition-colors ${
               isActive('/')
                 ? 'text-blue-600 border-b-2 border-blue-600'
@@ -26,6 +27,7 @@ export function Navigation() {
           </Link>
           <Link
             to="/journals"
+            aria-current={isActive('/journals') ? 'page' : undefined}
             className={`text-sm font-medium transition-colors ${
               isActive('/journals')
                 ? 'text-blue-600 border-b-2 border-blue-600'
@@ -36,6 +38,7 @@ export function Navigation() {
           </Link>
           <Link
             to="/add"
+            aria-current={isActive('/add') ? 'page' : undefined}
             className={`text-sm font-medium px-3 py-1 rounded-lg transition-colors ${
               isActive('/add')
                 ? 'bg-blue-600 text-white'

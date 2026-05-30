@@ -31,7 +31,7 @@ export function Home() {
   return (
     <div className="space-y-8">
       {/* Quick Add Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-8">
+      <section className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-8" aria-label="Quick entry section">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">
           {todayEntry ? "Today's Entry" : "Start Today"}
         </h2>
@@ -42,7 +42,7 @@ export function Home() {
         </p>
         <Link
           to="/add"
-          className="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+          className="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
         >
           {todayEntry ? 'Update Entry' : 'Create Entry'}
         </Link>

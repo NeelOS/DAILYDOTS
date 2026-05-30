@@ -26,28 +26,34 @@ export function JournalCard({ entry, onDelete }: JournalCardProps) {
   };
 
   return (
-    <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow bg-white">
+    <article className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow bg-white" aria-label={`Journal entry for ${formatDate(entry.date)}`}>
       <div className="flex items-start justify-between mb-3">
         <div>
-          <p className="text-sm text-gray-500">{formatDate(entry.date)}</p>
-          <p className="text-2xl mt-1">{entry.mood}</p>
+          <time dateTime={entry.date} className="text-sm text-gray-500">
+            {formatDate(entry.date)}
+          </time>
+          <p className="text-2xl mt-1" aria-label={`Mood: ${entry.mood}`}>
+            {entry.mood}
+          </p>
         </div>
         <div className="flex gap-2">
           <Link
             to={`/add?date=${entry.date}`}
-            className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors"
+            className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            aria-label={`Edit entry for ${formatDate(entry.date)}`}
           >
             Edit
           </Link>
           <button
             onClick={handleDelete}
-            className="px-3 py-1 text-sm bg-red-100 text-red-700 rounded hover:bg-red-200 transition-colors"
+            className="px-3 py-1 text-sm bg-red-100 text-red-700 rounded hover:bg-red-200 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+            aria-label={`Delete entry for ${formatDate(entry.date)}`}
           >
             Delete
           </button>
         </div>
       </div>
       <p className="text-gray-700 text-sm leading-relaxed">{preview}</p>
-    </div>
+    </article>
   );
 }
